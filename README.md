@@ -21,6 +21,6 @@ Please feel free to contribute to this repository by adding your own implementat
 
 - Producer one with FAST API endpoint to send messages to a Kafka topic: my-topic
 - Consumer_Producer service to consume my-topic from Producer one and produce to my-topic-two.
-  - Consumer component returns: {"key": "nice nice nice"}
-  - Producer component returns: {'message': 'even more messages', 'passed_in': {'message': '{"key": "nice nice nice"}'}, 'status': 'success'}
-- Consumer two service to consume my-topic-two from Consumer_Producer service and print to console: {"message": "{\"key\": \"nice nice nice\"}"} 
+  - Consumer component returns
+  - Producer component returns:
+- Consumer two service to consume my-topic-two from Consumer_Producer service and print to console
