@@ -15,9 +15,13 @@ producer_conf = {
 producer = Producer(producer_conf)
 
 def produce(data: dict):
-    producer.produce('my-topic-two', value=json.dumps(data).encode('utf-8'))
-    producer.flush()
-    return {"message": "even more messages", "passed_in": data, "status": "success"}
+    try:
+        data = json.dumps(data).encode('utf-8')
+        producer.produce('my-topic-two', value=data)
+        producer.flush()
+        return {"message": "even more messages", "passed_in": data, "status": "success"}
+    except Exception as e:
+        return {"status": "error", "message": str(e)}
 
 
 conf = {
