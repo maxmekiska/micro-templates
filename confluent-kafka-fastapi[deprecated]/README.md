@@ -1,4 +1,6 @@
-# `Confluent-Kafka-FastAPI-Docker`
+# `Confluent-Kafka-FastAPI-Docker` [deprecated]
+
+Initial implementation of a micro service pattern using FastAPI and Confluent Kafka. This implementation is deprecated and is not recommended for use. Please refer to the `Confluent-Kafka-Rust` implementation for a more robust solution.
 
 ## How to use
 
