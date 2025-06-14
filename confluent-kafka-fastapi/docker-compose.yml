@@ -74,7 +74,7 @@ services:
 
 
   consumerproducer:
-    build: ./consumer_producer
+    build: ./consumer-producer
     environment:
       - KAFKA_BOOTSTRAP_SERVERS=kafka:29092
       - KAFKA_GROUP_ID=my-group
