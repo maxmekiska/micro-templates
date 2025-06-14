@@ -1,23 +1,25 @@
 from confluent_kafka import Consumer, KafkaError
-import time 
+import time
 
 import logging
+
 logging.basicConfig(level=logging.DEBUG)
 
 
 conf = {
-    'bootstrap.servers': 'kafka:29092',
-    'auto.offset.reset': 'earliest',
-    'enable.auto.commit': True,
-    'group.id': 'my-group',
-    'api.version.request': True,
-    'api.version.fallback.ms': 0
+    "bootstrap.servers": "kafka:29092",
+    "auto.offset.reset": "earliest",
+    "enable.auto.commit": True,
+    "group.id": "my-group",
+    "api.version.request": True,
+    "api.version.fallback.ms": 0,
 }
+
 
 def consume_messages():
     consumer = Consumer(conf)
 
-    consumer.subscribe(['my-topic-two'])
+    consumer.subscribe(["my-topic-two"])
 
     try:
         while True:
@@ -32,13 +34,15 @@ def consume_messages():
             if msg.error():
                 logging.info("Error")
                 if msg.error().code() == KafkaError._PARTITION_EOF:
-                    print(f'Reached end of partition: {msg.topic()}[{msg.partition()}]')
+                    print(f"Reached end of partition: {msg.topic()}[{msg.partition()}]")
                 else:
-                    print(f'Error while consuming messages: {msg.error()}')
+                    print(f"Error while consuming messages: {msg.error()}")
                     logging.info(msg.error())
             else:
-                print(f"Received message on consumer two: {msg.value().decode('utf-8')}")
-                logging.info(msg.value().decode('utf-8'))
+                print(
+                    f"Received message on consumer two: {msg.value().decode('utf-8')}"
+                )
+                logging.info(msg.value().decode("utf-8"))
 
     except Exception as e:
         print(f"Exception occurred while consuming messages: {e}")
@@ -52,6 +56,7 @@ def startup():
     logging.info("Starting consumer two...")
     time.sleep(30)
     consume_messages()
+
 
 if __name__ == "__main__":
     try:
