@@ -25,7 +25,7 @@ def delivery_report(err, msg):
             f"Message delivery failed for key {msg.key().decode('utf-8') if msg.key() else 'None'}: {err}"
         )
     else:
-        logging.error(
+        logging.info(
             f"Message delivered to topic '{msg.topic()}' [{msg.partition()}] @ offset {msg.offset()} "
             f"for key {msg.key().decode('utf-8') if msg.key() else 'None'}"
         )

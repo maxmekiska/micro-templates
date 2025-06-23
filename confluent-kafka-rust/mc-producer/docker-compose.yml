@@ -1,0 +1,37 @@
+services:
+  # Define your producer service
+  mc-producer:
+    # Build the Docker image from the current directory (where your Dockerfile is located)
+    build: .
+    # (Optional) You can explicitly name the image that will be built
+    # image: mc-producer:latest
+    
+    # Connect this service to your existing Kafka network
+    # Make sure this network is created and running by your Kafka setup (e.g., another docker-compose)
+    networks:
+      - confluent-kafka-rust_kafka_network
+    
+    # Configure deployment settings for scaling
+    deploy:
+      # Specify the number of replicas you want to run.
+      # For example, to run 1 instances of your producer:
+      replicas: 1 # You can change this number as needed
+      
+      # Define a restart policy to ensure services automatically recover from failures
+      restart_policy:
+        condition: on-failure # Restart if the container exits with a non-zero exit code
+        delay: 5s           # Wait 5 seconds before attempting a restart
+        max_attempts: 3     # Try to restart up to 3 times
+        window: 120s        # Consider restarts within 120 seconds for max_attempts
+
+    # Essential for seeing real-time logs from your Python application inside Docker
+    environment:
+      - PYTHONUNBUFFERED=1
+      # If your producer Python script also needs KAFKA_BROKER or other variables,
+      # you would add them here, e.g.:
+      # - KAFKA_BROKER=kafka:29092
+
+# Define the external network that your Kafka setup is using
+networks:
+  confluent-kafka-rust_kafka_network:
+    external: true

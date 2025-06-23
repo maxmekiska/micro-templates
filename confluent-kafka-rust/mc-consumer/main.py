@@ -1,5 +1,5 @@
 import json
-from confluent_kafka import Consumer, KafkaException
+from confluent_kafka import Consumer, KafkaException, KafkaError
 import logging
 
 
@@ -18,7 +18,7 @@ def create_consumer():
     conf = {
         "bootstrap.servers": KAFKA_BROKER,
         "group.id": CONSUMER_GROUP_ID,
-        "auto.offset.reset": "latest",  # Start reading from the beginning if no offset is committed
+        "auto.offset.reset": "latest",  # Start reading from the latest offset if no offset is committed
         "enable.auto.commit": True,  # Automatically commit offsets
         "auto.commit.interval.ms": 5000,  # Commit every 5 seconds
     }
@@ -57,8 +57,9 @@ def run_processor(consumer):
             if msg is None:
                 continue
             if msg.error():
-                if msg.error().is_partition_eof():
-                    logging.error(
+                # Corrected way to check for end-of-partition (EOF)
+                if msg.error().code() == KafkaError._PARTITION_EOF:
+                    logging.info( # Changed to INFO as EOF is not an error but a boundary
                         f"Reached end of partition {msg.partition()} for topic {msg.topic()}"
                     )
                 else:
@@ -110,7 +111,7 @@ def run_processor(consumer):
                 )
 
     except KeyboardInterrupt:
-        logging.error("\nShutting down processor...")
+        logging.info("\nShutting down processor...") # Changed to INFO
     finally:
         consumer.close()
         logging.info("Kafka clients closed.")
@@ -120,3 +121,4 @@ if __name__ == "__main__":
     consumer_instance = create_consumer()
     if consumer_instance:
         run_processor(consumer_instance)
+

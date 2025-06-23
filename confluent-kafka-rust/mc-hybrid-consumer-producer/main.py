@@ -78,7 +78,7 @@ def run_processor(consumer, producer):
         logging.info("Kafka clients not initialized. Exiting.")
         return
 
-    logging.ino(f"Waiting for integration requests from topic '{INPUT_TOPIC_NAME}'...")
+    logging.info(f"Waiting for integration requests from topic '{INPUT_TOPIC_NAME}'...")
     try:
         while True:
             msg = consumer.poll(

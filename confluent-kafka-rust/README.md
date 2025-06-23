@@ -39,19 +39,19 @@ Access Redpanda Console at http://localhost:8080 to monitor topics and messages.
 #### Producer Service
 ```bash
 cd mc-producer
-./run-mc-producer.sh
+docker compose up -d --build --scale mc-producer
 ```
 
 #### Hybrid Consumer-Producer (Main Processor)
 ```bash
 cd mc-hybrid-consumer-producer
-./run-mc-hybrid-consumer-producer.sh
+docker compose up -d --build --scale mc-hybrid-consumer-producer=3
 ```
 
 #### Result Consumer
 ```bash
 cd mc-consumer
-./run-mc-consumer.sh
+docker compose up -d --build --scale mc-consumer=3
 ```
 
 ### 3. Monitor the System
