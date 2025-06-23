@@ -40,8 +40,8 @@ docker compose up -d --build --scale consumer-producer=3 # Scales to 3 consumer-
 graph TD
     subgraph Services
         ProducerService[Producer Service]
-        ConsumerService[Consumer Service<br/>(Replicas in Group: mygroup)]
-        ConsumerProducerService[Consumer-Producer Service<br/>(Replicas in Group: mygroup-consumer-producer)]
+        ConsumerService[Consumer Service\n(Replicas in Group: mygroup)]
+        ConsumerProducerService[Consumer-Producer Service\n(Replicas in Group: mygroup-consumer-producer)]
         RedisDashboard[Redis Dashboard]
     end
 
