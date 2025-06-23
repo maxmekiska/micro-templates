@@ -1,0 +1,18 @@
+services:
+  consumer:
+    build: .
+    environment:
+      - REDIS_HOST=my-redis-stream
+      - REDIS_PORT=6379
+      - PYTHONUNBUFFERED=1
+    networks:
+      - my-redis-network
+
+    deploy:
+      replicas: 3 # <-- Change this number to how many consumer instances you want
+      restart_policy:
+        condition: on-failure # Optional: ensures containers restart if they crash
+
+networks:
+  my-redis-network:
+    external: true
