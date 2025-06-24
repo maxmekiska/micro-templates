@@ -1,6 +1,6 @@
 import json
 import logging
-from confluent_kafka import Consumer, Producer, KafkaException
+from confluent_kafka import Consumer, Producer, KafkaException, KafkaError
 
 from mc_hybrid_consumer_producer import monte_carlo_integrate_rs
 
@@ -87,8 +87,8 @@ def run_processor(consumer, producer):
             if msg is None:
                 continue
             if msg.error():
-                if msg.error().is_partition_eof():
-                    logging.error(
+                if msg.error().code() == KafkaError._PARTITION_EOF:
+                    logging.info(
                         f"Reached end of partition {msg.partition()} for topic {msg.topic()}"
                     )
                 else:

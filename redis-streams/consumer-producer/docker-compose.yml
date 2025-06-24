@@ -1,18 +1,17 @@
 services:
   consumer-producer:
-    build: . # Build the image from the current directory (where Dockerfile, consumer.py, requirements.txt are)
+    build: .
     environment:
-      # These variables are read by your Python script
-      - REDIS_HOST=my-redis-stream # The name of your Redis container on the shared network
+      - REDIS_HOST=my-redis-stream
       - REDIS_PORT=6379
-      - PYTHONUNBUFFERED=1 # Essential for live logs
+      - PYTHONUNBUFFERED=1
     networks:
-      - my-redis-network # Connect this service to your pre-existing Docker network
-    deploy: # Optional: for default scaling behavior
-      replicas: 2 # E.g., run 2 producer instances
+      - my-redis-network
+    deploy:
+      replicas: 2
       restart_policy:
         condition: on-failure
 
 networks:
-  my-redis-network: # Reference the external network
+  my-redis-network:
     external: true

@@ -9,9 +9,9 @@ services:
       - my-redis-network
 
     deploy:
-      replicas: 3 # <-- Change this number to how many consumer instances you want
+      replicas: 3
       restart_policy:
-        condition: on-failure # Optional: ensures containers restart if they crash
+        condition: on-failure
 
 networks:
   my-redis-network:
