@@ -7,6 +7,7 @@ Project created based on: https://stackoverflow.com/questions/75839415/kafka-fas
 - [Confluent-Kafka-FastAPI-Docker](confluent-kafka-fastapi[deprecated]/README.md) - deprecated
 - [Confluent-Kafka-Rust](confluent-kafka-rust/README.md)
 - [Redis-Stream](redis-stream/README.md)
+- [Rabbit-MQ](rabbit-mq/README.md)
 
 ## Call for contributions
 

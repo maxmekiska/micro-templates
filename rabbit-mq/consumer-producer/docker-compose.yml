@@ -1,0 +1,17 @@
+services:
+  consumer-producer:
+    build: .
+    environment:
+      - RABBITMQ_HOST=${RABBITMQ_HOST:-rabbitmq-broker}
+      - RABBITMQ_PORT=${RABBITMQ_PORT:-5672}
+      - PYTHONUNBUFFERED=1
+    networks:
+      - my-rabbitmq-network
+    deploy:
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+
+networks:
+  my-rabbitmq-network:
+    external: true

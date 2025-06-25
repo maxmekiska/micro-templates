@@ -1,0 +1,18 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    hostname: rabbitmq-broker
+    container_name: my-rabbitmq-broker
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    networks:
+      - my-rabbitmq-network
+
+networks:
+  my-rabbitmq-network:
+    name: my-rabbitmq-network
+    driver: bridge
